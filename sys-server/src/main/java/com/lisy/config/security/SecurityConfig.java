@@ -1,7 +1,10 @@
 package com.lisy.config.security;
 
-import com.lisy.entitys.SysUser;
-import com.lisy.service.ISysUserService;
+import com.lisy.config.security.component.JwtAuthenticationFilter;
+import com.lisy.config.security.component.RestAccessDeniedHandler;
+import com.lisy.config.security.component.RestAuthenticationEntryPoint;
+import com.lisy.entitys.User;
+import com.lisy.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,7 +28,7 @@ import javax.annotation.Resource;
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Resource
-    private ISysUserService SysUserService;
+    private IUserService userService;
     @Autowired
     private RestAccessDeniedHandler restAccessDeniedHandler;
     @Autowired
@@ -73,9 +76,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public UserDetailsService userDetailsService() {
         return userName ->{
-            SysUser sysUser = SysUserService.getBySysUser(userName);
-            if (sysUser != null) {
-                return sysUser;
+            User user = userService.getByUserName(userName);
+            if (user != null) {
+                return user;
             }
             return null;
         };

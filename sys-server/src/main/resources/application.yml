@@ -3,7 +3,7 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/vue-admin?useUnicode=true&characterEncoding=utf8&useSSL=false
+    url: jdbc:mysql://127.0.0.1:3306/springboot-vue?useUnicode=true&characterEncoding=utf8&useSSL=false
     username: root
     password: root
     hikari:
@@ -23,6 +23,28 @@ spring:
       connection-timeout: 30000
       # 测试连接是否查询的语句
       connection-test-query: SELECT 1
+  # redis配置
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    password:
+    username:
+    #连接超时时间
+    connect-timeout: 10000ms
+    #数据库
+    database: 0
+    lettuce:
+      pool:
+        #最大连接数默认8
+        max-active: 8
+        #最大连接阻塞时间默认-1
+        max-wait: 20000ms
+        #最小 空闲连接
+        min-idle: 5
+        #最大空闲连接
+        max-idle: 200
+
+
 # mybatis-plus配置
 mybatis-plus:
   # 配置mapper映射文件
