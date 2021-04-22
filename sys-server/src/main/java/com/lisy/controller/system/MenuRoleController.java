@@ -1,4 +1,4 @@
-package com.lisy.controller;
+package com.lisy.controller.system;
 
 
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2021-04-17
  */
 @RestController
-@RequestMapping("/user-role")
-public class UserRoleController {
+@RequestMapping("/menu-role")
+public class MenuRoleController {
 
 }

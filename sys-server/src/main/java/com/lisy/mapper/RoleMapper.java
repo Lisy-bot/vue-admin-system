@@ -2,6 +2,7 @@ package com.lisy.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.lisy.entitys.Role;
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +14,5 @@ import com.lisy.entitys.Role;
  */
 public interface RoleMapper extends BaseMapper<Role> {
 
+    List<Role> getRoles(Integer userId);
 }

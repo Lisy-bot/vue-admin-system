@@ -65,6 +65,6 @@ jwt:
   # Jwt加密使用密钥
   secre: lisy-secre
   # jwt过期时间(60*60*24),毫秒
-  expiration: 600000
+  expiration: 6000000
   # jwt 负载中拿到请求头
   tokenHead: Bearer

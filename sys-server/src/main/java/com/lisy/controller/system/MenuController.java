@@ -1,4 +1,4 @@
-package com.lisy.controller;
+package com.lisy.controller.system;
 
 
 import com.lisy.entitys.Menu;

@@ -13,5 +13,21 @@
     <sql id="Base_Column_List">
         id, name, nameZh
     </sql>
-
+<!-- 根据用户ID 角色列表 -->
+    <select id="getRoles" resultType="com.lisy.entitys.Role">
+        SELECT
+            r.id,
+            r.name,
+            r.nameZh
+        FROM
+            role r
+        LEFT JOIN
+            user_role ur
+        ON
+            r.id = ur.role_id
+        WHERE
+            ur.user_id=#{uid}
+        GROUP BY
+            ur.role_id
+    </select>
 </mapper>

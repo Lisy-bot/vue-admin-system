@@ -62,20 +62,20 @@
             user_role ur,
             menu_role mr
 		where
-		    m1.id=m2.parentId
+		    m1.id = m2.parentId
 		and
-		    ur.user_id=3
+		    ur.user_id = #{userId}
 		and
-		    ur.role_id=mr.role_id
+		    ur.role_id = mr.role_id
 		and
-		    mr.menu_id=m2.id
+		    mr.menu_id = m2.id
 		and
-		    m2.enabled=true
+		    m2.enabled = true
 		order by
 		    m1.id,m2.id
     </select>
 
-    <!--根据角色获取菜单列表-->
+    <!-- 根据角色获取菜单列表 -->
     <select id="getMenusWithRole" resultMap="MenusWithRole">
         SELECT
             m.*,
@@ -92,5 +92,17 @@
             r.id = mr.role_id
         GROUP BY
             m.id
+    </select>
+
+    <select id="getAllByParentId" resultMap="BaseResultMap">
+        SELECT
+            <include refid="Base_Column_List"></include>
+        FROM menu
+
+        WHERE
+            parentId = #{pid}
+        AND
+            enabled = true
+
     </select>
 </mapper>

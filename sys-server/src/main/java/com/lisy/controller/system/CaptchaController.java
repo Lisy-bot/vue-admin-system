@@ -1,4 +1,4 @@
-package com.lisy.controller;
+package com.lisy.controller.system;
 
 import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.Producer;
