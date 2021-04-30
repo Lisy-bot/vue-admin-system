@@ -3,6 +3,7 @@ import com.lisy.config.security.component.*;
 import com.lisy.entitys.User;
 import com.lisy.service.IRoleService;
 import com.lisy.service.IUserService;
+import com.lisy.utils.RespBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -94,7 +95,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 user.setRoles(roleService.getRoles(user.getId()));
                 return user;
             }
-            throw new UsernameNotFoundException("用户名或密码错误!");
+            // throw new UsernameNotFoundException("用户名或密码错误!");
+            return null;
         };
     }
 
@@ -106,6 +108,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers(
+                "/JX_CUCC/jsp/jsp/pkdata/checkOrder.jsp",
                 "/login",
                 "/captcha",
                 "/logout",

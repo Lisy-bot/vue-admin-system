@@ -14,6 +14,7 @@
         <result column="requireAuth" property="requireAuth"/>
         <result column="parentId" property="parentId"/>
         <result column="enabled" property="enabled"/>
+        <result column="componentPath" property="componentPath"/>
     </resultMap>
     <!-- 通用查询映射结果 -->
     <resultMap id="Menus" type="com.lisy.entitys.Menu" extends="BaseResultMap">
@@ -28,6 +29,7 @@
             <result column="requireAuth2" property="requireAuth"/>
             <result column="parentId2" property="parentId"/>
             <result column="enabled2" property="enabled"/>
+            <result column="componentPath2" property="componentPath"/>
         </collection>
     </resultMap>
     <resultMap id="MenusWithRole" type="com.lisy.entitys.Menu" extends="BaseResultMap">
@@ -41,13 +43,14 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, url, path, component, name, iconCls, keepAlive, requireAuth, parentId, enabled
+        id, url, path, component, name, iconCls, keepAlive, requireAuth, parentId, enabled, componentPath
     </sql>
     <!--根据用ID查询菜单列表-->
     <select id="getMenuByUserId" resultMap="Menus">
         select distinct
             m1.*,
             m2.id as id2,
+            m2.componentPath as componentPath2,
             m2.component as component2,
             m2.enabled as enabled2,
             m2.iconCls as iconCls2,

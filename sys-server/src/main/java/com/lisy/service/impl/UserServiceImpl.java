@@ -56,7 +56,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         // 获取验证码
         String captchaCode = (String) request.getSession().getAttribute(Constants.KAPTCHA_SESSION_KEY);
         if(StringUtils.isEmpty(captchaCode)){
-            return RespBean.error("输入验证码超时!");
+            return RespBean.error("验证码过期!");
         }if (StringUtils.isEmpty(captcha) || !captchaCode.equalsIgnoreCase(captcha)) {
             return RespBean.error("验证码输入错误,请重新输入!");
         }

@@ -52,7 +52,8 @@ public class Menu implements Serializable {
     private Integer parentId;
     @ApiModelProperty(value = "是否启用")
     private Boolean enabled;
-
+    @ApiModelProperty(value = "前端组件存放目录")
+    private String componentPath;
     @ApiModelProperty(value = "子菜单")
     // exist标识数据库没有这个字段
     @TableField(exist = false)

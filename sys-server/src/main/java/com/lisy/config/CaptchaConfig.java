@@ -38,7 +38,7 @@ public class CaptchaConfig {
         // 描述: 图片宽默认值: 200 合法值
         properties.put("kaptcha.image.width","100");
         // 描述: 图片高 默认值: 50 合法值:
-        properties.put("kaptcha.image.height","35");
+        properties.put("kaptcha.image.height","40");
         // 干扰颜色，合法值： r,g,b 或者 white,black,blue.
         properties.put("kaptcha.noise.color","blue");
         // 干扰实现类
