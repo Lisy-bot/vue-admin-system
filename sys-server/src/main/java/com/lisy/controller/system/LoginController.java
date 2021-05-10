@@ -50,7 +50,7 @@ public class LoginController {
     }
 
     @ApiOperation(value = "退出登录")
-    @PostMapping("/lagout")
+    @PostMapping("/logout")
     public RespBean lagout() {
         return RespBean.success("注销成功!");
     }
