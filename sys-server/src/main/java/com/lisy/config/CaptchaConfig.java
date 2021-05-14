@@ -35,6 +35,8 @@ public class CaptchaConfig {
         properties.put("kaptcha.textproducer.char.length", "4");
         // 文字间隔 默认值: 2
         properties.put("kaptcha.textproducer.char.space", "4");
+        // 验证码值设置
+        properties.put("kaptcha.textproducer.char.string","0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
         // 描述: 图片宽默认值: 200 合法值
         properties.put("kaptcha.image.width","100");
         // 描述: 图片高 默认值: 50 合法值:
