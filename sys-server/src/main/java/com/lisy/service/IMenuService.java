@@ -26,4 +26,11 @@ public interface IMenuService extends IService<Menu> {
      * @return
      */
     List<Menu> getMenusWithRole();
+
+    /**
+     * 根据用户ID查询按钮权限
+     * @param
+     * @return
+     */
+    List<Menu> findByMenuBtnUserId();
 }

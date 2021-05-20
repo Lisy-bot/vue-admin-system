@@ -46,7 +46,7 @@ public class CodeGenerator {
         // 全局配置
         GlobalConfig gc = new GlobalConfig();
         String projectPath = System.getProperty("user.dir");
-        gc.setOutputDir(projectPath + "/sys-generator/src/main/java");
+        gc.setOutputDir(projectPath + "/sys-admin/src/main/java");
         // xml开启BaseResultMap
         gc.setBaseResultMap(true);
         // xml开启BaseColumnList
@@ -58,7 +58,7 @@ public class CodeGenerator {
 
         // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:mysql://localhost:3306/vue-admin?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=Asia/Shanghai");
+        dsc.setUrl("jdbc:mysql://localhost:3306/admin?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=Asia/Shanghai");
         dsc.setSchemaName("public");
         dsc.setDriverName("com.mysql.cj.jdbc.Driver");
         dsc.setUsername("root");
@@ -97,7 +97,7 @@ public class CodeGenerator {
             @Override
             public String outputFile(TableInfo tableInfo) {
                 // 自定义输出文件名 ， 如果你 Entity 设置了前后缀、此处注意 xml 的名称会跟着发生变化！！
-                return projectPath + "/sys-generator/src/main/resources/mapper/" + pc.getModuleName()
+                return projectPath + "/sys-admin/src/main/resources/mapper/" + pc.getModuleName()
                         + "/" + tableInfo.getEntityName() + "Mapper" + StringPool.DOT_XML;
             }
         });
@@ -142,9 +142,7 @@ public class CodeGenerator {
         // strategy.setSuperControllerClass("你自己的父类控制器,没有就不用设置!");
         // 写于父类中的公共字段
         // strategy.setSuperEntityColumns("id");
-        strategy.setInclude(scanner("sys_user_role,sys_user_post,sys_user,sys_role_menu,sys_role_dept," +
-                "sys_role,sys_post,sys_oper_log, sys_notice,sys_menu,sys_logininfor,sys_job_log,sys_job" +
-                "sys_dict_type,sys_dict_data,sys_dept,sys_config,gen_table_column,gen_table").split(","));
+        strategy.setInclude(scanner("").split(","));
         strategy.setControllerMappingHyphenStyle(true);
         strategy.setTablePrefix(pc.getModuleName() + "_");
         mpg.setStrategy(strategy);

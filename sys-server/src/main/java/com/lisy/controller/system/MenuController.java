@@ -25,12 +25,15 @@ import java.util.List;
 public class MenuController {
     @Autowired
     private IMenuService menuService;
-
-
     @ApiModelProperty(value = "通过用户ID查询菜单列表")
     @GetMapping("/menu")
     public List<Menu> getMenuByUserId(){
        return menuService.getMenuByUserId();
+    }
+    @ApiModelProperty(value = "通过用户ID查询按钮权限列表")
+    @GetMapping("/btnpermissions")
+    public List<Menu> getMenuBtnByUserId(){
+        return  menuService.findByMenuBtnUserId();
     }
 
 }

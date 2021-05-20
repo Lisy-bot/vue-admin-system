@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lisy.mapper.MenuMapper">
-
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.lisy.entitys.Menu">
         <id column="id" property="id"/>
@@ -14,23 +13,7 @@
         <result column="requireAuth" property="requireAuth"/>
         <result column="parentId" property="parentId"/>
         <result column="enabled" property="enabled"/>
-        <result column="componentPath" property="componentPath"/>
-    </resultMap>
-    <!-- 通用查询映射结果 -->
-    <resultMap id="Menus" type="com.lisy.entitys.Menu" extends="BaseResultMap">
-        <collection property="children" ofType="com.lisy.entitys.Menu">
-            <id column="id2" property="id"/>
-            <result column="url2" property="url"/>
-            <result column="path2" property="path"/>
-            <result column="component2" property="component"/>
-            <result column="name2" property="name"/>
-            <result column="iconCls2" property="iconCls"/>
-            <result column="keepAlive2" property="keepAlive"/>
-            <result column="requireAuth2" property="requireAuth"/>
-            <result column="parentId2" property="parentId"/>
-            <result column="enabled2" property="enabled"/>
-            <result column="componentPath2" property="componentPath"/>
-        </collection>
+        <result column="type" property="type"/>
     </resultMap>
     <resultMap id="MenusWithRole" type="com.lisy.entitys.Menu" extends="BaseResultMap">
         <collection property="roles" ofType="com.lisy.entitys.Role">
@@ -40,44 +23,10 @@
         </collection>
 
     </resultMap>
-
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, url, path, component, name, iconCls, keepAlive, requireAuth, parentId, enabled, componentPath
+        id, url, path, component, name, iconCls, keepAlive, requireAuth, parentId, enabled, type
     </sql>
-    <!--根据用ID查询菜单列表-->
-    <select id="getMenuByUserId" resultMap="Menus">
-        select distinct
-            m1.*,
-            m2.id as id2,
-            m2.componentPath as componentPath2,
-            m2.component as component2,
-            m2.enabled as enabled2,
-            m2.iconCls as iconCls2,
-            m2.keepAlive as keepAlive2,
-            m2.name as name2,
-            m2.parentId as parentId2,
-            m2.requireAuth as requireAuth2,
-            m2.path as path2
-		from
-            menu m1,
-            menu m2,
-            user_role ur,
-            menu_role mr
-		where
-		    m1.id = m2.parentId
-		and
-		    ur.user_id = #{userId}
-		and
-		    ur.role_id = mr.role_id
-		and
-		    mr.menu_id = m2.id
-		and
-		    m2.enabled = true
-		order by
-		    m1.id,m2.id
-    </select>
-
     <!-- 根据角色获取菜单列表 -->
     <select id="getMenusWithRole" resultMap="MenusWithRole">
         SELECT
@@ -96,7 +45,6 @@
         GROUP BY
             m.id
     </select>
-
     <select id="getAllByParentId" resultMap="BaseResultMap">
         SELECT
             <include refid="Base_Column_List"></include>
@@ -107,5 +55,21 @@
         AND
             enabled = true
 
+    </select>
+<!--  根据用户ID查询菜单列表  -->
+    <select id="findByMenuUserId" parameterType="map" resultMap="BaseResultMap">
+        SELECT DISTINCT m.* FROM menu m
+        inner join menu_role rm
+            ON m.id = rm.menu_id
+        inner join user_role ru
+            ON ru.role_id = rm.role_id
+        <where>
+            enabled = 1
+            AND ru.user_id = #{userId,jdbcType=INTEGER}
+            <if test="type != null and type != ''">
+                AND m.type = #{type,jdbcType=INTEGER}
+            </if>
+        </where>
+        ORDER BY m.id
     </select>
 </mapper>
