@@ -8,10 +8,13 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+import org.hibernate.validator.constraints.Length;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
@@ -38,6 +41,7 @@ public class User implements Serializable, UserDetails {
     private Integer id;
 
     @ApiModelProperty(value = "姓名")
+    @NotEmpty(message = "管理员名字不能为空!")
     private String name;
 
     @ApiModelProperty(value = "手机号码")
@@ -52,25 +56,36 @@ public class User implements Serializable, UserDetails {
     private Boolean enabled;
 
     @ApiModelProperty(value = "用户名")
+    @NotBlank(message = "登录用户名不能为空")
     private String username;
 
     @ApiModelProperty(value = "密码")
+    @NotEmpty(message = "密码不能为空")
+    @Length(min = 6, max = 8, message = "密码长度为6-8")
+    @Pattern(regexp = "[a-zA-z]*", message = "密码不合法")
     private String password;
+
+
     @ApiModelProperty(value = "用户界面")
     private String userface;
+
+
     @ApiModelProperty(value = "备注")
     private String remark;
 
     @ApiModelProperty(value = "角色")
     @TableField(exist = false)
     private List<Role> roles;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
     }
 
     @Override
-    public String getUsername() {return username;}
+    public String getUsername() {
+        return username;
+    }
 
     @Override
     public boolean isAccountNonExpired() {
